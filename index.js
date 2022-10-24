@@ -1,14 +1,14 @@
 const prompt = require("prompt-sync")();
+const assegnazione= require( './assegnazione');
+const attaccare= require( './attaccare');
 
-let riga = 0;
-let colonna = 0;
+
 let n = 0;
 let numnavi = 0;
-let navi = [];
 let cas = "|" + "-" + "|";
-let gioc1 = 0;
 let turno = 3;
-let attacco = 0;
+let attacco1 = 0;
+let attacco2=0;
 let colpito = -1;
 
 n = prompt("quante righe/colonne vuoi?");
@@ -32,7 +32,52 @@ console.log("turno giocatore 2: ");
 let posizione2 = assegnazione(n, numnavi);
 console.log(posizione2);
 
-function assegnazione(n, numnavi) {
+
+
+while (numnavi1 !== 0 && numnavi2 !== 0) {
+  if (turno % 2 !== 0) {
+    console.log("turno giocatore 1: ");
+    attacco1 = attaccare(n,  posizione2);
+    for (i = 0; i < numnavi; i++) {
+      if (attacco1 == posizione2[i]) {
+        colpito = attacco1;
+        posizione2[i] = -100;
+        numnavi2--;
+      } }
+
+      if (colpito !== -1) {
+        console.log("colpito");
+        colpito=-1;
+      } else {
+        console.log("acqua");
+        colpito=-1;
+        turno++;
+      }
+    } else {
+      console.log("turno giocatore 2: ");
+     attacco2 = attaccare(n,  posizione1);
+
+    for (i = 0; i < numnavi; i++) {
+      if (attacco2 == posizione1[i]) {
+        colpito = attacco2;
+        posizione1[i] = -100;
+        numnavi1--;
+      }}
+
+      if (colpito !== -1) {
+        console.log("colpito");
+        colpito= -1;
+      } else {
+        console.log("acqua");
+        colpito=-1;
+        turno++;
+      }
+    }
+  } 
+
+  module.export = n,numnavi,posizione1,posizione2;
+
+  /*function assegnazione(n, numnavi) {
   let posizione = 0;
   let valore = [];
   for (i = 0; i < numnavi; i++) {
@@ -50,52 +95,9 @@ function assegnazione(n, numnavi) {
     valore.push(posizione);
   }
   return valore;
-}
+}*/
 
-while (numnavi1 !== 0 && numnavi2 !== 0) {
-  if (turno % 2 !== 0) {
-    console.log("turno giocatore 1: ");
-    attacco = attaccare(n,  posizione2);
-    for (i = 0; i < numnavi; i++) {
-      if (attacco == posizione2[i]) {
-        colpito = attacco;
-        posizione2[i] = -100;
-        numnavi2--;
-      } }
-
-      if (colpito !== -1) {
-        console.log("colpito");
-        colpito=-1;
-      } else {
-        console.log("acqua");
-        colpito=-1;
-        turno++;
-      }
-    } else {
-      console.log("turno giocatore 2: ");
-      attacco = attaccare(n,  posizione1);
-
-    for (i = 0; i < numnavi; i++) {
-      if (attacco == posizione1[i]) {
-        colpito = attacco;
-        posizione1[i] = -100;
-        numnavi1--;
-      }}
-
-      if (colpito !== -1) {
-        console.log("colpito");
-        colpito= -1;
-      } else {
-        console.log("acqua");
-        colpito=-1;
-        turno++;
-      }
-    }
-  } 
-
-
-
-function attaccare(n, posizione) {
+/*function attaccare(n, posizione) {
   let attaccocolonna = "";
   let attaccoriga = "";
   let attaccare = 0;
@@ -115,4 +117,4 @@ function attaccare(n, posizione) {
     console.log(attaccare)
     return attaccare;
   }
-}
+}*/
