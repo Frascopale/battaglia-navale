@@ -8,6 +8,8 @@ let navi = [];
 let cas = "|" + "-" + "|";
 let gioc1 = 0;
 let turno = 3;
+let attacco = 0;
+let colpito = -1;
 
 n = prompt("quante righe/colonne vuoi?");
 numnavi = prompt("quante navi vuoi?");
@@ -30,9 +32,6 @@ console.log("turno giocatore 2: ");
 let posizione2 = assegnazione(n, numnavi);
 console.log(posizione2);
 
-//attacco2(n,numnavi1,posizione1,numnavi)
-//attacco(n, posizione1, posizione2, numnavi, numnavi1, numnavi2);
-
 function assegnazione(n, numnavi) {
   let posizione = 0;
   let valore = [];
@@ -52,93 +51,68 @@ function assegnazione(n, numnavi) {
   }
   return valore;
 }
-while (numnavi1 !==0 || numnavi2!==0){
-attacco(n, numnavi1, numnavi2, posizione1, posizione2, turno);}
 
-/*function attacco(n, posizione1, posizione2, numnavi, numnavi1, numnavi2) {
-  let attaccocolonna = "";
-  let attaccoriga = "";
-  let attaccare = 0;
-  while (numnavi1 !== 0 || numnav2 !== 0) {
-    while (attaccare !== posizione1 || attaccare !== posizione2) {
-      attaccoriga = prompt("in quale riga vuoi attaccare la nave?");
-      attaccocolonna = prompt("in quale colonna vuoi attaccare la nave?");
-      while (attaccoriga > n || attaccocolonna > n) {
-        attaccoriga = prompt(
-          "Valore non valido, reinserisci in quale riga vuoi inserire la nave?"
-        );
-        attaccocolonna = prompt(
-          "Valore non valido, in quale colonna vuoi inserire la nave?"
-        );
+while (numnavi1 !== 0 && numnavi2 !== 0) {
+  if (turno % 2 !== 0) {
+    console.log("turno giocatore 1: ");
+    attacco = attaccare(n,  posizione2);
+    for (i = 0; i < numnavi; i++) {
+      if (attacco == posizione2[i]) {
+        colpito = attacco;
+        posizione2[i] = -100;
+        numnavi2--;
+      } }
+
+      if (colpito !== -1) {
+        console.log("colpito");
+        colpito=-1;
+      } else {
+        console.log("acqua");
+        colpito=-1;
+        turno++;
       }
-      attaccare = (attaccocolonna - 1) * n + (attaccoriga - 1);
-      for (i = 0; i < numnavi; i++) {
-        if (attaccare == posizione1[i] || attaccare == posizione2[i]) {
-
-
-          console.log("affondato " + "\n");
-        } else {
-          console.log("acqua");
-        }
-      }
-    }
-  }
-}*/
-
-function attacco(n, numnavi1, numnavi2, posizione1, posizione2, turno) {
-  let attaccocolonna = "";
-  let attaccoriga = "";
-  let attaccare = 0;
-
-  while (numnavi1 !== 0 || numnavi2 !== 0) {
-    if (turno % 2 !== 0) {
-      console.log("è il turno del giocatore 1: ");
-      while (attaccare !== posizione2) {
-        attaccoriga = prompt("in quale riga vuoi attaccare la nave?");
-        attaccocolonna = prompt("in quale colonna vuoi attaccare la nave?");
-        while (attaccoriga > n || attaccocolonna > n) {
-          attaccoriga = prompt(
-            "Valore non valido, reinserisci in quale riga vuoi inserire la nave?"
-          );
-          attaccocolonna = prompt(
-            "Valore non valido, in quale colonna vuoi inserire la nave?"
-          );
-        }
-        attaccare = (attaccocolonna - 1) * n + (attaccoriga - 1);
-        for (i = 0; i < numnavi; i++) {
-          if (attaccare == posizione2[i]) {
-            return console.log("affondato " + "\n");
-          } else {
-            console.log("acqua");
-            turno ++;
-          }
-        }
-      }
-      
     } else {
-      console.log("è il turno del giocatore 2: ");
-      while (attaccare !== posizione1 || attaccare !== posizione2) {
-        attaccoriga = prompt("in quale riga vuoi attaccare la nave?");
-        attaccocolonna = prompt("in quale colonna vuoi attaccare la nave?");
-        while (attaccoriga > n || attaccocolonna > n) {
-          attaccoriga = prompt(
-            "Valore non valido, reinserisci in quale riga vuoi inserire la nave?"
-          );
-          attaccocolonna = prompt(
-            "Valore non valido, in quale colonna vuoi inserire la nave?"
-          );
-        }
-        attaccare = (attaccocolonna - 1) * n + (attaccoriga - 1);
-        for (i = 0; i < numnavi; i++) {
-          if (attaccare == posizione1[i]) {
-           return  console.log("affondato " + "\n");
-          } else {
-            console.log("acqua");
-            turno ++;
-          }
-        }
+      console.log("turno giocatore 2: ");
+      attacco = attaccare(n,  posizione1);
+
+    for (i = 0; i < numnavi; i++) {
+      if (attacco == posizione1[i]) {
+        colpito = attacco;
+        posizione1[i] = -100;
+        numnavi1--;
+      }}
+
+      if (colpito !== -1) {
+        console.log("colpito");
+        colpito= -1;
+      } else {
+        console.log("acqua");
+        colpito=-1;
+        turno++;
       }
-      
     }
+  } 
+
+
+
+function attaccare(n, posizione) {
+  let attaccocolonna = "";
+  let attaccoriga = "";
+  let attaccare = 0;
+
+  if (attaccare !== posizione) {
+    attaccoriga = prompt("in quale riga vuoi attaccare la nave?");
+    attaccocolonna = prompt("in quale colonna vuoi attaccare la nave?");
+    while (attaccoriga > n || attaccocolonna > n) {
+      attaccoriga = prompt(
+        "Valore non valido, reinserisci in quale riga vuoi inserire la nave?"
+      );
+      attaccocolonna = prompt(
+        "Valore non valido, in quale colonna vuoi inserire la nave?"
+      );
+    }
+    attaccare = (attaccocolonna - 1) * n + (attaccoriga - 1);
+    console.log(attaccare)
+    return attaccare;
   }
 }
